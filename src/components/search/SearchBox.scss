@@ -1,12 +1,17 @@
+@import "./../../style/main.scss";
+
 .search-box-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  align-items: center;
   position: sticky;
   top: 0;
+  height: 2.75rem !important;
+  padding: 1.5rem 0 1.5rem 0;
+  background-color: $background-color;
   height: 2rem;
-
+  z-index: 5;
   input {
     flex: 1 1 auto;
     margin-left: 1rem;
@@ -14,7 +19,7 @@
     height: 2rem;
     border: unset;
     width: inherit;
-    background-color: #171717;
+    background-color: $background-color;
     line-height: 2rem;
     font-size: 1.5rem;
   }
@@ -29,6 +34,6 @@
   }
 
   div {
-    background-color: #171717;
+    background-color: $background-color;
   }
 }

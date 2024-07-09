@@ -54,8 +54,6 @@ function App() {
       console.log("data", result?.data?.page?.["content-items"]);
       if (result.status == STATUS_MAP.OK) {
         let newMovies = result?.data?.page?.["content-items"]?.content
-        //newMovies = newMovies.slice(0, 3);
-        console.log("new movies", newMovies);
 
         setAllMovies(prev => {
           return [
@@ -64,7 +62,7 @@ function App() {
           ]
 
         });
-        setPageIndex((prev) => prev + 1);
+        setTimeout(() => setPageIndex((prev) => prev + 1));
       } else {
         console.log(result);
         throw new Error();

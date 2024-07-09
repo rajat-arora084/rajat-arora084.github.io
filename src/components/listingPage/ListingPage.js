@@ -35,7 +35,7 @@ const ListingPage = ({
 
 
     return (<>{
-        isLoading ? <Loader /> : <>  <Container fluid={true} className="listing-page">
+        isLoading && pageIndex == 1 ? <Loader /> : <>  <Container fluid={true} className="listing-page pt-0">
             {
                 Array(numberOfRows).fill("").map((_, rowIndex) => <Row xs={{ gutter: 10 }}>
                     {
@@ -45,6 +45,9 @@ const ListingPage = ({
                 </Row>
                 )
             }
+            {
+                isLoading && pageIndex > 1 && <Row><Loader type="small" /></Row>
+            } <Row></Row>
         </Container></>
     }
 
