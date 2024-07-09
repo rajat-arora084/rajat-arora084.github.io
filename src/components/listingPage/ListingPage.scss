@@ -1,5 +1,13 @@
+@import "./../../style/main.scss";
+
 .listing-page {
   padding: 1rem;
+  .end-of-list {
+    p {
+      margin: 0 !important;
+      color: $text-color;
+    }
+  }
 }
 
 .listing-page::-webkit-scrollbar {

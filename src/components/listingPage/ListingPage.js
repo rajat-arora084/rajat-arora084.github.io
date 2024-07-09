@@ -8,12 +8,9 @@ import MoviePane from "../moviePane/MoviePane";
 import SearchBox from "../search/SearchBox";
 import "./ListingPage.scss"
 
-const ListingPage = ({
-    handleScroll,
+const ListingPage = () => {
 
-}) => {
-
-    const { allMovies, isLoading, pageIndex } = useContext(ContextProvider);
+    const { allMovies, isLoading, pageIndex, hasFetchedAllMovies } = useContext(ContextProvider);
     const numberOfMovies = allMovies.length || 0;
     const numberOfRows = Math.ceil(numberOfMovies / 3); // per Row 3 movies.
 
@@ -37,17 +34,25 @@ const ListingPage = ({
     return (<>{
         isLoading && pageIndex == 1 ? <Loader /> : <>  <Container fluid={true} className="listing-page pt-0">
             {
-                Array(numberOfRows).fill("").map((_, rowIndex) => <Row xs={{ gutter: 10 }}>
+                Array(numberOfRows).fill("").map((_, rowIndex) => <Row xs={{ gutter: 10 }} key={`row-${rowIndex}`}>
                     {
-                        Array(3).fill("").map((_, colIndex) => <MoviePane movieIndex={rowIndex * 3 + colIndex} />
+                        Array(3).fill("").map((_, colIndex) => <MoviePane movieIndex={rowIndex * 3 + colIndex} key={`column-${rowIndex}-${colIndex}`} />
                         )
                     }
                 </Row>
                 )
             }
             {
-                isLoading && pageIndex > 1 && <Row><Loader type="small" /></Row>
-            } <Row></Row>
+                isLoading && pageIndex > 1 && <Row>
+                    <Col xs={12}>
+                        <Loader type="small" /></Col>
+                </Row>
+            }
+            {
+                hasFetchedAllMovies && !isLoading && <Row>
+                    <Col xs={12} className="end-of-list d-flex justify-content-center align-items-center"><p>End of List.</p></Col>
+                </Row>
+            }
         </Container></>
     }
 

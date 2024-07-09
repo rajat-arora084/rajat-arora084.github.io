@@ -8,12 +8,12 @@ body {
   background-color: #171717 !important;
 }
 
-.main-body::-webkit-scrollbar {
-  display: none;
+::-webkit-scrollbar {
+  display: none !important;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #ff0000;
+  background: #ff0000;
 }
 
 @font-face {

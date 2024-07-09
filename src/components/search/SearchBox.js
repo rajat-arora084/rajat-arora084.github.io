@@ -10,7 +10,7 @@ const SearchBox = () => {
     return <>
         <div className="search-box-container">
             <div><img src={BackImage} /></div>
-            <input value={searchedText} type="text"></input>
+            <input defaultValue={searchedText} type="text"></input>
             <div><img src={SearchImage} /></div>
         </div>
     </>

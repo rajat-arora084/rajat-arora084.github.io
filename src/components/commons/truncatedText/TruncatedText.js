@@ -4,7 +4,6 @@ import "./TruncatedText.scss";
 
 const TruncatedText = ({ maxLength = maxLengthForTruncatedText, text, customClass }) => {
 
-    if (text.length > maxLength) console.log("text", text);
 
     return <p className={`truncated-text ${customClass}`}>{text}</p>
 
