@@ -1,11 +1,10 @@
+import { useCallback, useEffect, useState } from 'react';
+import { fetchMovieData } from './apis/apis';
 import './App.scss';
 import ListingPage from './components/listingPage/ListingPage';
-import { createContext, useCallback, useEffect, useState } from 'react';
-import { fetchMovieData } from './apis/apis';
+import SearchBox from './components/search/SearchBox';
 import { STATUS_MAP } from './utils/constants';
 import ContextProvider from './utils/ContextProvider';
-import SearchBox from './components/search/SearchBox';
-import Loader from './components/commons/loader/Loader';
 
 
 function App() {
@@ -14,9 +13,11 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [pageIndex, setPageIndex] = useState(1);
   const [hasFetchedAllMovies, setHasFetchedAllMovies] = useState(false);
+  const [textSearch, setTextSearch] = useState("");
+  const [filteredMovies, setFilteredMovies] = useState([]);
 
   const handleScroll = useCallback((e, ref) => {
-    const numberOfRows = Math.ceil(allMovies.length / 3);
+    //const numberOfRows = Math.ceil(filteredMovies.length / 3);
     /* Consider 1 row height to be 130px.
     For n number of rows total height of content will be n*130;
     now when scroll position is (n-1)*130 -20; -> make an api call.
@@ -31,7 +32,8 @@ function App() {
       }
 
     }
-  }, [allMovies.length, isLoading]);
+  }, //eslint-disable-next-line
+    [isLoading]);
 
   useEffect(() => {
 
@@ -40,7 +42,8 @@ function App() {
     return () => {
       document.removeEventListener("scroll", handleScroll);
     }
-  }, [allMovies, isLoading]);
+  }, //eslint-disable-next-line 
+    [allMovies, isLoading]);
 
 
   const fetchData = async () => {
@@ -48,7 +51,7 @@ function App() {
       if (hasFetchedAllMovies) return;
       setIsLoading(true);
       const result = await fetchMovieData({ currentPage: pageIndex });
-      if (result.status == STATUS_MAP.OK) {
+      if (result.status === STATUS_MAP.OK) {
         let newMovies = result?.data?.page?.["content-items"]?.content
 
         setAllMovies(prev => {
@@ -60,11 +63,10 @@ function App() {
         });
         setTimeout(() => setPageIndex((prev) => prev + 1));
       } else {
-        console.log(result);
         throw new Error();
       }
     } catch (err) {
-      if (err.response.status == STATUS_MAP.FORBIDDEN) {
+      if (err.response.status === STATUS_MAP.FORBIDDEN) {
         setHasFetchedAllMovies(true);
       }
     } finally {
@@ -74,7 +76,27 @@ function App() {
   }
   useEffect(() => {
     fetchData();
-  }, []);
+  },//eslint-disable-next-line
+    []);
+
+  const onChangeTextSearch = (e) => {
+    setTextSearch(prev => e.target.value);
+  }
+
+  useEffect(() => {
+    if (textSearch) {
+      let lowerCaseTextSearch = textSearch.toLowerCase();
+      let filteredDataOfMovies = allMovies.filter(movieData => {
+        if (movieData?.name?.toLowerCase().includes(lowerCaseTextSearch))
+          return true;
+        return false;
+      });
+      setFilteredMovies(filteredDataOfMovies);
+    } else {
+      setFilteredMovies([...allMovies]);
+    }
+  }, [textSearch, allMovies]);
+
 
   return (
     <div className="App">
@@ -82,9 +104,12 @@ function App() {
         allMovies,
         isLoading,
         pageIndex,
-        hasFetchedAllMovies
+        hasFetchedAllMovies,
+        filteredMovies
       }}>
-        <SearchBox />
+        <SearchBox
+          textSearch={textSearch}
+          onChangeTextSearch={onChangeTextSearch} />
         <ListingPage />
       </ContextProvider.Provider>
     </div>
