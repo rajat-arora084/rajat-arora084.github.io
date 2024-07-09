@@ -1,0 +1,6 @@
+.truncated-text {
+  width: 25vw; //calc((100% - 2.1rem) / 3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

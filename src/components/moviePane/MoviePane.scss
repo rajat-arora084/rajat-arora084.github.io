@@ -1,0 +1,18 @@
+.movie-pane {
+  height: fit-content;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+
+  span {
+    width: 5rem;
+    height: 2rem;
+    border: 1px solid;
+  }
+
+  img {
+    width: 100%;
+  }
+}
