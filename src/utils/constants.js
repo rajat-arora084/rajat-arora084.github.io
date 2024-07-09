@@ -8,8 +8,11 @@ const STATUS_MAP = {
 
 const maxLengthForTruncatedText = 7;
 
+const searchedText = "Romantic Comedy";
+
 export {
     BASE_URL_API_ENDPOINT,
     STATUS_MAP,
-    maxLengthForTruncatedText
+    maxLengthForTruncatedText,
+    searchedText
 }
