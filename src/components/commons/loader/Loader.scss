@@ -1,0 +1,14 @@
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100vw - 2rem);
+  height: calc(100vh - 2rem);
+
+  .loader-box {
+    width: 30px;
+    height: 30px;
+    border: 5px solid rgb(241, 237, 237);
+    border-radius: 50%;
+  }
+}
