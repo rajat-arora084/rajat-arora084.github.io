@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { fetchMovieData } from './apis/apis';
 import './App.scss';
 import ListingPage from './components/listingPage/ListingPage';
@@ -9,6 +9,7 @@ import ContextProvider from './utils/ContextProvider';
 
 function App() {
 
+  // Inital states for maintaining movies list, loader state, pageNumber & text search
   const [allMovies, setAllMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [pageIndex, setPageIndex] = useState(1);
@@ -45,7 +46,7 @@ function App() {
   }, //eslint-disable-next-line 
     [allMovies, isLoading]);
 
-
+  // Fetch data via api call.
   const fetchData = async () => {
     try {
       if (hasFetchedAllMovies) return;
@@ -54,6 +55,7 @@ function App() {
       if (result.status === STATUS_MAP.OK) {
         let newMovies = result?.data?.page?.["content-items"]?.content
 
+        // Update the current page movies list to existing list.
         setAllMovies(prev => {
           return [
             ...prev,
@@ -66,6 +68,7 @@ function App() {
         throw new Error();
       }
     } catch (err) {
+      // When api gives 403, means that all movies have been fetched.
       if (err.response.status === STATUS_MAP.FORBIDDEN) {
         setHasFetchedAllMovies(true);
       }
@@ -74,6 +77,8 @@ function App() {
     }
 
   }
+
+  // Fetch the 1st list of movies on mounting.
   useEffect(() => {
     fetchData();
   },//eslint-disable-next-line
@@ -84,6 +89,7 @@ function App() {
   }
 
   useEffect(() => {
+    // Filter all movies based on the search text.
     if (textSearch) {
       let lowerCaseTextSearch = textSearch.toLowerCase();
       let filteredDataOfMovies = allMovies.filter(movieData => {
@@ -97,6 +103,10 @@ function App() {
     }
   }, [textSearch, allMovies]);
 
+  const onBackBtnClick = () => {
+    setTextSearch(""); // Reset text bar.
+  }
+
 
   return (
     <div className="App">
@@ -109,7 +119,8 @@ function App() {
       }}>
         <SearchBox
           textSearch={textSearch}
-          onChangeTextSearch={onChangeTextSearch} />
+          onChangeTextSearch={onChangeTextSearch}
+          onBackBtnClick={onBackBtnClick} />
         <ListingPage />
       </ContextProvider.Provider>
     </div>

@@ -8,6 +8,14 @@
 
   img {
     width: 100%;
+    /*
+      We are calculating height based on the view port width
+      as total screen width is showing 3images. Hence one
+      particular image takes 100/3 vw excluding margins.
+      With margins it would be (100vw - 5rem)/3.
+      as height is 1.5 times the width, then 
+      height will (1.5/3)(100vw - 5rem)
+    */
     height: calc((100vw - 5rem) / 2);
   }
 }
