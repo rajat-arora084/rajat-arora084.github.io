@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.f76ecbaa.css",
-    "main.js": "/static/js/main.117455ca.js",
+    "main.js": "/static/js/main.0437364d.js",
     "static/js/453.554e9614.chunk.js": "/static/js/453.554e9614.chunk.js",
     "static/media/TitilliumWeb-Regular.ttf": "/static/media/TitilliumWeb-Regular.e53e0538893d432e0635.ttf",
     "index.html": "/index.html",
     "main.f76ecbaa.css.map": "/static/css/main.f76ecbaa.css.map",
-    "main.117455ca.js.map": "/static/js/main.117455ca.js.map",
+    "main.0437364d.js.map": "/static/js/main.0437364d.js.map",
     "453.554e9614.chunk.js.map": "/static/js/453.554e9614.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f76ecbaa.css",
-    "static/js/main.117455ca.js"
+    "static/js/main.0437364d.js"
   ]
 }
