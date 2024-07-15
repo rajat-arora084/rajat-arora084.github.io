@@ -37,12 +37,12 @@ const TruncatedText = ({ maxLength, text, customClass }) => {
         let scrollWidth = ref.current?.scrollWidth;
         // When the mouse is over the paragraph & 
         // its width is lesser than the scroll width, then display tooltip.
-        ref.current.addEventListener("mouseover", () => {
+        ref.current?.addEventListener("mouseover", () => {
             if (offsetWidth < scrollWidth) setShowOverlay(true);
         })
 
         return () => {
-            ref.current.removeEventListener("mouseover", () => {
+            ref.current?.removeEventListener("mouseover", () => {
                 if (offsetWidth < scrollWidth) setShowOverlay(true);
             })
         }
